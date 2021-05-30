@@ -1,0 +1,1 @@
+((set result (add x 17)) (if (add (sub (mul x 1) 1) 2) ((while result ((while 0 ()) (set result (sub result 7))))) ((set result x))))

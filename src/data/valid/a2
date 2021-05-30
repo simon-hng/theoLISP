@@ -1,0 +1,1 @@
+((set x 1) (while (sub 16 i) ((set x (mul x 2)) (set i (add i 1)))) (set result x))

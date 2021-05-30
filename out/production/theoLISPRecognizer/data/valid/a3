@@ -1,0 +1,1 @@
+((set a 247) (set b 299) (while a ((set b (sub b a)) (if (sub a b) ((set t a) (set a b) (set b t)) ()))) (set result b))
