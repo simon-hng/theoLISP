@@ -42,11 +42,7 @@ object Recognizer {
         { isOperation(it, { it == operation }, ::isTerm, ::isTerm) }
 
     // Actual productions
-    fun isTerm(token: String): Boolean {
-        val result = listOf(::isVariable, ::isNumber, ::isAdd, ::isSub, ::isMul).any { it(token) }
-        if (!result) println(token)
-        return result
-    }
+    fun isTerm(token: String): Boolean = listOf(::isVariable, ::isNumber, ::isAdd, ::isSub, ::isMul).any { it(token) }
 
     fun isVariable(token: String) = token.all { it.toInt() in IntRange(0x61, 0x7a) }
     fun isNumber(token: String) = token.all { it.toInt() in IntRange(0x30, 0x39) }
@@ -55,16 +51,10 @@ object Recognizer {
     fun isSub(token: String) = isArithmetic(token, "sub")
     fun isMul(token: String) = isArithmetic(token, "mul")
 
-    fun isStmtOuter(token: String): Boolean {
-        val result = listOf(::isIf, ::isWhile, ::isSet).any { it(token) } ||
-                bracketed(token, ::isStmtInner)
-        if (!result) println(token)
-        return result
-    }
+    fun isStmtOuter(token: String): Boolean = bracketed(token, ::isStmtInner)
 
-    fun isStmtInner(token: String): Boolean {
-        return tokenize(token).all { isStmtOuter(it) }
-    }
+    fun isStmtInner(token: String): Boolean = tokenize(token).all { isStmtOuter(it) } ||
+            listOf(::isIf, ::isWhile, ::isSet).any { it(token) }
 
     fun isIf(token: String): Boolean =
         bracketed(token)

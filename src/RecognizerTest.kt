@@ -61,7 +61,7 @@ internal class RecognizerTest {
                 .map { path ->
                     DynamicTest.dynamicTest(
                         path.toString()
-                    ) { assertTrue(Recognizer.isStmtOuter(path.readText())) }
+                    ) { assertTrue(RecognizerM.isProgram(path.readText())) }
                 }
                 .toList()
 
@@ -73,14 +73,14 @@ internal class RecognizerTest {
                 .map { path ->
                     DynamicTest.dynamicTest(
                         path.toString()
-                    ) { assertFalse(Recognizer.isStmtOuter(path.readText())) }
+                    ) { assertFalse(RecognizerM.isProgram(path.readText())) }
                 }
                 .toList()
 
         @Test
         fun marmortafel() {
             assertFalse(
-                Recognizer.isStmtOuter(
+                RecognizerM.isProgram(
                     (File("./src/data/invalid/c1").readText())
                 )
             )
